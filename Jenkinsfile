@@ -21,8 +21,8 @@ pipeline {
       steps{
           sh '''
             cd ~
-            cd .ssh
-            ssh -i jenkins-keys unix@dev-sec-ops-tomcat-vm
+            sudo cd .ssh
+            sudo ssh -i jenkins-keys unix@dev-sec-ops-tomcat-vm
             Fisher@12
             echo $USER
             '''
