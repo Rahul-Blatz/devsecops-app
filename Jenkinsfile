@@ -19,13 +19,9 @@ pipeline {
     }
     stage('Deploy-to-Tomcat'){
       steps{
-          sh '''
-            cd ~
-            sudo cd .ssh
-            sudo ssh -i jenkins-keys unix@dev-sec-ops-tomcat-vm
-            Fisher@12
-            echo $USER
-            '''
+         sshagent(['tomcat']) {
+                sh 'scp -o StrictHostKeyChecking=no target/*.war unix@dev-sec-ops-tomcat-vm:/prod/apache-tomcat-8.5.39/webapps/webapp.war'
+              }
       }
     }
   }
