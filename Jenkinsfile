@@ -28,8 +28,8 @@ pipeline {
       steps{
         echo 'Testing...'
         snykSecurity(
-          snykInstallation: 'Snyk'
-          snykTokenId: 'blatz-snyk-api-token'
+          snykInstallation: 'Snyk',
+          snykTokenId: 'blatz-snyk-api-token',
         )
       }
     }
