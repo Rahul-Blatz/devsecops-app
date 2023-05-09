@@ -24,6 +24,15 @@ pipeline {
         sh 'mvn clean package'
       }
     }
+    stage('Test') {
+      steps{
+        echo 'Testing...'
+        snykSecurity(
+          snykInstallation: 'Snyk'
+          snykTokenId: 'blatz-snyk-api-token'
+        )
+      }
+    }
     stage('Deploy-to-Tomcat'){
       steps{
          sshagent(credentials: ['tomcat']) {
