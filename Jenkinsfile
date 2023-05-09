@@ -24,7 +24,7 @@ pipeline {
         sh 'mvn clean package'
       }
     }
-    stage('Test') {
+    stage('Snyk-Test') {
       steps{
         echo 'Testing...'
         snykSecurity(
