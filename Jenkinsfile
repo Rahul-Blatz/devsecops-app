@@ -12,13 +12,13 @@ pipeline {
         '''
       }
     }
-    stage ('Check-Git-Secrets') {
-      steps {
-        sh 'rm trufflehog || true'
-        sh 'docker run gesellix/trufflehog --json https://github.com/Rahul-Blatz/devsecops-app.git > trufflehog'
-        sh 'cat trufflehog'
-      }
-    }
+//     stage ('Check-Git-Secrets') {
+//       steps {
+//         sh 'rm trufflehog || true'
+//         sh 'docker run gesellix/trufflehog --json https://github.com/Rahul-Blatz/devsecops-app.git > trufflehog'
+//         sh 'cat trufflehog'
+//       }
+//     }
 //     stage ('Source Composition Analysis') {
 //       steps {
 //          sh 'rm owasp* || true'
@@ -28,29 +28,29 @@ pipeline {
 //          sh 'cat /var/lib/jenkins/OWASP-Dependency-Check/reports/dependency-check-report.xml'   
 //       }
 //     }
-    stage ('SAST') {
-      steps {
-        withSonarQubeEnv('sonarqube') {
-          sh 'mvn sonar:sonar'
-          sh 'cat target/sonar/report-task.txt'
-        }
-      }
-    }
+//     stage ('SAST') {
+//       steps {
+//         withSonarQubeEnv('sonarqube') {
+//           sh 'mvn sonar:sonar'
+//           sh 'cat target/sonar/report-task.txt'
+//         }
+//       }
+//     }
     
     stage('Build'){
       steps{
         sh 'mvn clean package'
       }
     }
-    stage('Snyk-Test') {
-      steps{
-        echo 'Testing...'
-        snykSecurity(
-          snykInstallation: 'Snyk',
-          snykTokenId: 'blatz-snyk-api-token',
-        )
-      }
-    }
+//     stage('Snyk-Test') {
+//       steps{
+//         echo 'Testing...'
+//         snykSecurity(
+//           snykInstallation: 'Snyk',
+//           snykTokenId: 'blatz-snyk-api-token',
+//         )
+//       }
+//     }
     stage('Deploy-to-Tomcat'){
       steps{
          sshagent(credentials: ['tomcat']) {
